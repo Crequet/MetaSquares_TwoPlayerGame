@@ -1,0 +1,171 @@
+﻿<Window x:Class="MetaSquares_TwoPlayerGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MetaSquares_TwoPlayerGame"
+				mc:Ignorable="d"
+				Title="MetaSquares"
+				Height="500"
+				Width="600">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width='100' />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Border Grid.Column='1'
+						BorderThickness='1'
+						BorderBrush='Black'
+						Margin='1,0,-1,-1'>
+			<Grid Background="AliceBlue">
+				<Border BorderThickness='2'
+								BorderBrush='Black'
+								Margin='1,0,-1,-1'
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center">
+					<Grid HorizontalAlignment="Center"
+								VerticalAlignment="Center">
+						<Grid.Background>
+							<SolidColorBrush Color="White" />
+						</Grid.Background>
+						<ItemsControl Name="squareCollection1Items"
+													HorizontalAlignment="Left"
+													VerticalAlignment="Top">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<Grid />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<ItemsControl ItemsSource="{Binding Path=Sides}"
+																HorizontalAlignment="Left"
+																VerticalAlignment="Top">
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<Grid />
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<Line Stroke="#7F004A70"
+															StrokeThickness="2"
+															X1="{Binding Path=Point1.X}"
+															X2="{Binding Path=Point2.X}"
+															Y1="{Binding Path=Point1.Y}"
+															Y2="{Binding Path=Point2.Y}" />
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+						<ItemsControl Name="squareCollection2Items"
+													HorizontalAlignment="Left"
+													VerticalAlignment="Top">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<Grid />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<ItemsControl ItemsSource="{Binding Path=Sides}"
+																HorizontalAlignment="Left"
+																VerticalAlignment="Top">
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<Grid />
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<Line Stroke="#7F009767"
+															StrokeThickness="2"
+															X1="{Binding Path=Point1.X}"
+															X2="{Binding Path=Point2.X}"
+															Y1="{Binding Path=Point1.Y}"
+															Y2="{Binding Path=Point2.Y}" />
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+						<ItemsControl Name="cellCollectionCollectionItems"
+													HorizontalAlignment="Left"
+													VerticalAlignment="Top">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel Orientation='Vertical' />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<ItemsControl ItemsSource='{Binding Path=Cells}'>
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<StackPanel Orientation='Horizontal' />
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<Ellipse Fill='{Binding Path=CellColor}'
+																 Width='30'
+																 Height='30'
+																 Stroke='Black'
+																 MouseDown='cell_MouseDown'
+																 Margin='10'
+																 Tag='{Binding Path=ID}' />
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</Grid>
+				</Border>
+				<StackPanel VerticalAlignment="Bottom"
+										HorizontalAlignment="Left"
+										Margin="10"
+										Orientation="Horizontal">
+					<TextBlock Text="Player One Score: " />
+					<TextBlock Name="playerOneScoreTextBlock"
+										 Text="{Binding Path=PlayerOneScore}" />
+				</StackPanel>
+				<StackPanel VerticalAlignment="Bottom"
+										HorizontalAlignment="Right"
+										Margin="10"
+										Orientation="Horizontal">
+					<TextBlock Text="Player Two Score: " />
+					<TextBlock Name="playerTwoScoreTextBlock"
+										 Text="{Binding Path=PlayerTwoScore}" />
+				</StackPanel>
+			</Grid>
+		</Border>
+		<StackPanel>
+			<TextBox x:Name='rowsText'
+							 Height='23'
+							 Margin='10'
+							 Text='1'
+							 TextChanged='rowsText_TextChanged'
+							 MouseWheel='rowsText_columnText_MouseWheel' />
+			<TextBox x:Name='columnsText'
+							 Height='23'
+							 Margin='10,0'
+							 Text='1'
+							 TextChanged='columnsText_TextChanged'
+							 MouseWheel='rowsText_columnText_MouseWheel' />
+			<TextBlock Margin="10"
+								 TextWrapping="Wrap"
+								 Height="384">
+				MetaSquares <LineBreak /><LineBreak />			
+				HowToPlay: <LineBreak />
+				- Left click on a circle to color it blue <LineBreak />
+				- Right click on a circle to color it green <LineBreak />
+				- Upper textbox represents the number of rows <LineBreak />
+				- Lower textbox represents the number of columns <LineBreak />
+				- Player scores are visible at the bottom of the window <LineBreak /></TextBlock>
+		</StackPanel>
+	</Grid>
+</Window>
